@@ -1,0 +1,21 @@
+{
+  "name": "http-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@sentry/react": "^5.27.6",
+    "@sentry/tracing": "^5.27.6",
+    "axios": "^0.20.0",
+    "bootstrap": "^4.5.3",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-scripts": "1.1.4",
+    "react-toastify": "^6.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
