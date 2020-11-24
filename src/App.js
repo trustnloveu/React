@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import config from "./config.json";
 import httpService from "./services/httpService";
 
-import * as Sentry from "@sentry/react";
+import logger from "./services/logService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -50,11 +50,11 @@ class App extends Component {
     this.setState({ posts });
 
     try {
-      await httpService.delete("123" + config.apiEndpoint + "/" + post.id);
+      await httpService.delete(config.apiEndpoint + "/" + post.id);
     } catch (ex) {
       // console.log("HANDLE DELETE CATCH BLOCK");
       if (ex.response && ex.response.status === 404) {
-        Sentry.captureException(ex);
+        logger.log(ex);
         toast("This post has already been deleted.");
       }
 
