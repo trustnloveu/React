@@ -19,6 +19,11 @@ export default function reducer(state = [], action) {
   // case 2
   else if (action.type === actions.BUG_REMOVED)
     return state.filter((bug) => bug.id !== action.payload.id);
+  // case 3
+  else if (action.type === actions.BUG_RESOLVED)
+    return state.map((bug) =>
+      bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+    );
 
   // current state
   return state;
@@ -38,6 +43,10 @@ function switchReducer(state = [], action) {
       ];
     case actions.BUG_REMOVED:
       return state.filter((bug) => bug.id !== action.payload.id);
+    case actions.BUG_RESOLVED:
+      return state.map((bug) =>
+        bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+      );
     default:
       return state;
   }
