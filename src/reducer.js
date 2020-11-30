@@ -1,4 +1,5 @@
-// logging bugs
+// import { BUG_ADDED, BUG_REMOVED } from "./actionTypes";
+import * as actions from "./actionTypes";
 
 // [array of bugs] > initial state shouldn't be undefined > set default state as empty array
 let lastId = 0;
@@ -6,7 +7,7 @@ let lastId = 0;
 // if & else
 export default function reducer(state = [], action) {
   // case 1
-  if (action.type === "bugAdded")
+  if (action.type === actions.BUG_ADDED)
     return [
       ...state,
       {
@@ -16,7 +17,7 @@ export default function reducer(state = [], action) {
       },
     ];
   // case 2
-  else if (action.type === "bugRemoved")
+  else if (action.type === actions.BUG_REMOVED)
     return state.filter((bug) => bug.id !== action.payload.id);
 
   // current state
@@ -26,7 +27,7 @@ export default function reducer(state = [], action) {
 // switch
 function switchReducer(state = [], action) {
   switch (action.state) {
-    case "bugAdded":
+    case actions.BUG_ADDED:
       return [
         ...state,
         {
@@ -35,7 +36,7 @@ function switchReducer(state = [], action) {
           resolved: false,
         },
       ];
-    case "bugRemoved":
+    case actions.BUG_REMOVED:
       return state.filter((bug) => bug.id !== action.payload.id);
     default:
       return state;
