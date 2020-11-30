@@ -1,16 +1,27 @@
-import { produce } from "immer";
+// import { produce } from "immer";
+import store from "./store";
 
-let book = { title: "Harry Potter" };
+// subscribe(callback)
+// It's called every time the state of the store get changed
+const unsubscribe = store.subscribe(() => {
+  console.log("Store has chagned.", store.getState());
+});
 
-function publish(book) {
-  // 1st arg: initial state
-  // 2nd arg: function to specify mutation. draftBook is a proxy which records all the changes
-  return produce(book, (draftBook) => {
-    draftBook.isPublished = true;
-  });
-}
+// dispatch(), getState(), replaceReducer(), Symbol(obervable)
+console.log("Initial State: ", store); // > []: empty array of state
 
-let updated = publish(book);
+store.dispatch({
+  type: "bugAdded",
+  payload: {
+    description: "Bug 1",
+  },
+}); // [{...}]: added
 
-console.log(book);
-console.log(updated);
+// unsubscribe(); // you're not going to get notified from this time on wiht this function
+
+store.dispatch({
+  type: "bugRemoved",
+  payload: {
+    id: 1,
+  },
+}); // []: removed

@@ -4,7 +4,7 @@
 let lastId = 0;
 
 // if & else
-function ifReducer(state = [], action) {
+export default function reducer(state = [], action) {
   // case 1
   if (action.type === "bugAdded")
     return [
