@@ -1,18 +1,10 @@
-import store from "./store";
-import { bugAdded, bugRemoved, bugResolved } from "./actionCreator";
+import store from "./customStore";
+import * as actions from "./actionCreator";
 
-// subscribe(callback)
-// It's called every time the state of the store get changed
-const unsubscribe = store.subscribe(() => {
-  console.log("Store has chagned.", store.getState());
+store.subscribe(() => {
+  console.log("Store has changed.");
 });
 
-// dispatch(), getState(), replaceReducer(), Symbol(obervable)
-console.log("Initial State: ", store); // > []: empty array of state
+store.dispatch(actions.bugAdded("Bug 1"));
 
-store.dispatch(bugAdded("Bug 1")); // [{...}]: added
-store.dispatch(bugResolved(1));
-
-// unsubscribe(); // you're not going to get notified from this time on wiht this function
-
-store.dispatch(bugRemoved()); // []: removed
+console.log(store.getState());
