@@ -1,4 +1,4 @@
-import store from "./store";
+import store from "../store/store";
 // import { bugAdded, bugRemoved, bugResolved } from "./actionCreator";
 import actions from "./actionCreator";
 
