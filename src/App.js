@@ -1,23 +1,18 @@
-import "./App.css";
-import Movie from "./hoc/Movie";
-import Counter from "./hooks/Counter";
-import CounterClass from "./hooks/CounterClass";
-import CounterFunction from "./hooks/CounterFunction";
-import Users from "./hooks/Users";
+import React, { Component } from "react";
+import MoviePage from "./context/MoviePage";
+import UserContext from "./context/userContext";
+class App extends Component {
+  state = { currentUser: { name: "Austin" } };
 
-function App() {
-  return (
-    <>
-      <Users />
-      {/* <Counter />
-      <br />
-      <Movie id={1} />
-      <br />
-      <CounterClass />
-      <br />
-      <CounterFunction /> */}
-    </>
-  );
+  render() {
+    return (
+      <UserContext.Provider value={this.state.currentUser}>
+        <div>
+          <MoviePage />
+        </div>
+      </UserContext.Provider>
+    );
+  }
 }
 
 export default App;
