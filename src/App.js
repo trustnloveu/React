@@ -1,16 +1,34 @@
 import React, { Component } from "react";
+import Login from "./context/Login";
 import MoviePage from "./context/MoviePage";
 import UserContext from "./context/userContext";
+import CartContext from "./context/cartContext";
+
 class App extends Component {
-  state = { currentUser: { name: "Austin" } };
+  // updating login state
+  handleLoggedIn = (username) => {
+    console.log("Getting the suer: " + username);
+    const user = { name: "Austin" };
+    this.setState({ currentUser: user });
+  };
+
+  state = { currentUser: null };
 
   render() {
     return (
-      <UserContext.Provider value={this.state.currentUser}>
-        <div>
-          <MoviePage />
-        </div>
-      </UserContext.Provider>
+      <CartContext.Provider value={{ cart: [] }}>
+        <UserContext.Provider
+          value={{
+            currentUser: this.state.currentUser,
+            onLoggedIn: this.handleLoggedIn,
+          }}
+        >
+          <div>
+            <MoviePage />
+            <Login />
+          </div>
+        </UserContext.Provider>
+      </CartContext.Provider>
     );
   }
 }
