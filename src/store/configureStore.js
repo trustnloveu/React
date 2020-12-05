@@ -1,6 +1,5 @@
-import { fromJS } from "immutable";
-import reducer from "./bugs";
 import { configureStore } from "@reduxjs/toolkit";
+import reducer from "./reducer";
 // import { createStore } from "redux";
 // import { devToolsEnhancer } from "redux-devtools-extension";
 
