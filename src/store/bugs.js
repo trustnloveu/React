@@ -1,4 +1,5 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+// import produce from "immer";
 
 // createAction ( = createActionCreator)
 // const bugUpdated = createAction("bugUpdated");
@@ -6,37 +7,82 @@ import { createAction } from "@reduxjs/toolkit";
 // console.log(bugUpdated.type);
 // console.log(bugUpdated.toString());
 
-// redefine actions with Redux-toolkit
-export const bugAdded = createAction("bugAdded");
-export const bugResolved = createAction("bugResolved");
-export const bugRemoved = createAction("bugRemoved");
-
 // Reducer
 let lastId = 0; // [array of bugs] > initial state shouldn't be undefined > set default state as empty array
 
-// if & else
-export default function reducer(state = [], action) {
-  // if (action.type === BUG_ADDED)
-  if (action.type === bugAdded.type)
-    return [
-      ...state,
-      {
+// arg: configuration object
+const slice = createSlice({
+  name: "bugs",
+  initialState: [],
+  reducers: {
+    // map: actions => action handlers
+    bugAdded: (bugs, action) => {
+      bugs.push({
         id: ++lastId,
         description: action.payload.description,
         resolved: false,
-      },
-    ];
-  // else if (action.type === BUG_REMOVED)
-  else if (action.type === bugRemoved.type)
-    return state.filter((bug) => bug.id !== action.payload.id);
-  // else if (action.type === BUG_RESOLVED)
-  else if (action.type === bugResolved.type)
-    return state.map((bug) =>
-      bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
-    );
+      });
+    },
+    bugResolved: (bugs, action) => {
+      const index = bugs.findIndex((bug) => bug.id === action.payload.id);
+      bugs[index].resolved = true;
+    },
+    bugRemoved: (bugs, action) => {
+      bugs.filter((bug) => bug.id !== action.payload.id);
+    },
+  },
+});
 
-  return state; // current state
-}
+console.log(slice);
+
+export const { bugAdded, bugResolved, bugRemoved } = slice.actions;
+export default slice.reducer;
+
+// redefine actions with Redux-toolkit
+// export const bugAdded = createAction("bugAdded");
+// export const bugResolved = createAction("bugResolved");
+// export const bugRemoved = createAction("bugRemoved");
+
+// 1st: initial state, 2nd: object that maps actions to functions that handle the actions
+// export default createReducer([], {
+//   // key(actions): value(funtions)  - event => event handler
+//   [bugAdded.type]: (bugs, action) => {},
+
+//   [bugResolved.type]: (bugs, action) => {},
+
+//   [bugRemoved.type]: (bugs, action) => {
+//     bugs.filter((bug) => bug.id !== action.payload.id);
+//   },
+// });
+
+// Ex) How one of Emmer functions works
+// produce(initialState, (draftState) => {
+//   draftState.x = 1;
+// });
+
+// if & else
+// export default function reducer(state = [], action) {
+//   // if (action.type === BUG_ADDED)
+//   if (action.type === bugAdded.type)
+//     return [
+//       ...state,
+//       {
+//         id: ++lastId,
+//         description: action.payload.description,
+//         resolved: false,
+//       },
+//     ];
+//   // else if (action.type === BUG_REMOVED)
+//   else if (action.type === bugRemoved.type)
+//     return state.filter((bug) => bug.id !== action.payload.id);
+//   // else if (action.type === BUG_RESOLVED)
+//   else if (action.type === bugResolved.type)
+//     return state.map((bug) =>
+//       bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+//     );
+
+//   return state; // current state (default)
+// }
 
 // Action types
 // const BUG_ADDED = "bugAdded";
