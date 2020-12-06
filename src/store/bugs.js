@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 // import produce from "immer";
-
-// createAction ( = createActionCreator)
-// const bugUpdated = createAction("bugUpdated");
-// console.log(bugUpdated({ id: 1 }));
-// console.log(bugUpdated.type);
-// console.log(bugUpdated.toString());
 
 // Reducer
 let lastId = 0; // [array of bugs] > initial state shouldn't be undefined > set default state as empty array
@@ -37,6 +32,24 @@ console.log(slice);
 
 export const { bugAdded, bugResolved, bugRemoved } = slice.actions;
 export default slice.reducer;
+
+// Selecotr
+// export const getUnresolvedBugs = (state) =>
+//   state.entities.bugs.filter((bug) => !bug.resolved);
+
+// Memoizing Selector with 'Reselect' (input, output > result function)
+// output of multiple selectors will end up as the input of result function
+export const getUnresolvedBugs = createSelector(
+  (state) => state.entities.bugs,
+  (state) => state.entities.projects,
+  (bugs, projects) => bugs.filter((bug) => !bug.resolved)
+);
+
+// createAction ( = createActionCreator)
+// const bugUpdated = createAction("bugUpdated");
+// console.log(bugUpdated({ id: 1 }));
+// console.log(bugUpdated.type);
+// console.log(bugUpdated.toString());
 
 // redefine actions with Redux-toolkit
 // export const bugAdded = createAction("bugAdded");
