@@ -34,7 +34,7 @@ const slice = createSlice({
   },
 });
 
-console.log(slice);
+// console.log(slice);
 
 export const {
   bugAdded,
