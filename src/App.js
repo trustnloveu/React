@@ -13,30 +13,31 @@ function App() {
       id: "e2",
       date: new Date(2021, 5, 0),
       title: "수도세",
-      amount: "320,400원",
+      amount: "67,425원",
     },
     {
       id: "e3",
       date: new Date(2021, 5, 1),
       title: "아파트 관리비",
-      amount: "320,400원",
+      amount: "150,000원",
     },
     {
       id: "e4",
       date: new Date(2021, 5, 1),
       title: "롯데카드 5월 정산",
-      amount: "320,400원",
+      amount: "702,900원",
     },
   ];
 
   // return
   return (
-    <div>
-      <ExpenseItem data={expenses[0]} />
+    <>
+      {expenses && expenses.map((expense) => <ExpenseItem data={expense} />)}
+      {/* <ExpenseItem data={expenses[0]} />
       <ExpenseItem data={expenses[1]} />
       <ExpenseItem data={expenses[2]} />
-      <ExpenseItem data={expenses[3]} />
-    </div>
+      <ExpenseItem data={expenses[3]} /> */}
+    </>
   );
 }
 
