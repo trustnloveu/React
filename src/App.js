@@ -1,9 +1,41 @@
 import ExpenseItem from "./components/ExpenseItem";
 
 function App() {
+  // data
+  const expenses = [
+    {
+      id: "e1",
+      date: new Date(2021, 4, 31),
+      title: "자동차 보험료",
+      amount: "320,400원",
+    },
+    {
+      id: "e2",
+      date: new Date(2021, 5, 0),
+      title: "수도세",
+      amount: "320,400원",
+    },
+    {
+      id: "e3",
+      date: new Date(2021, 5, 1),
+      title: "아파트 관리비",
+      amount: "320,400원",
+    },
+    {
+      id: "e4",
+      date: new Date(2021, 5, 1),
+      title: "롯데카드 5월 정산",
+      amount: "320,400원",
+    },
+  ];
+
+  // return
   return (
     <div>
-      <ExpenseItem />
+      <ExpenseItem data={expenses[0]} />
+      <ExpenseItem data={expenses[1]} />
+      <ExpenseItem data={expenses[2]} />
+      <ExpenseItem data={expenses[3]} />
     </div>
   );
 }
