@@ -34,7 +34,10 @@ function App() {
   // return
   return (
     <div className="expense">
-      {expenses && expenses.map((expense) => <ExpenseItem data={expense} />)}
+      {expenses &&
+        expenses.map((expense) => (
+          <ExpenseItem key={expense.id} data={expense} />
+        ))}
     </div>
   );
 }
