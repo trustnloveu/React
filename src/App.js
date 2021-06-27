@@ -1,3 +1,5 @@
+import "./App.css";
+
 import ExpenseItem from "./components/ExpenseItem";
 
 function App() {
@@ -31,13 +33,9 @@ function App() {
 
   // return
   return (
-    <>
+    <div className="expense">
       {expenses && expenses.map((expense) => <ExpenseItem data={expense} />)}
-      {/* <ExpenseItem data={expenses[0]} />
-      <ExpenseItem data={expenses[1]} />
-      <ExpenseItem data={expenses[2]} />
-      <ExpenseItem data={expenses[3]} /> */}
-    </>
+    </div>
   );
 }
 
