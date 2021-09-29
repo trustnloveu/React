@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import "./ExpenseForm.css";
 
+//* Component
 const ExpenseForm = () => {
   // title, amount, date
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -52,9 +53,20 @@ const ExpenseForm = () => {
     setEnteredDate(event.target.value);
   };
 
-  // return
+  // submitHnadler
+  const submitHnadler = (event) => {
+    event.preventDefault(); //! Important : JavaScript Function > default 동작 차단
+
+    const expenseDate = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+  };
+
+  //* return
   return (
-    <form>
+    <form onSubmit={submitHnadler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
