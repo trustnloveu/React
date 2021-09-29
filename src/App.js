@@ -3,6 +3,7 @@ import "./App.css";
 import NewExpense from "./components/NewExpense/NewExpense";
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 
+//* App
 function App() {
   // data
   const expenses = [
@@ -32,10 +33,16 @@ function App() {
     },
   ];
 
-  // return
+  // addExpenseHandler
+  const addExpenseHandler = (expense) => {
+    console.log("================= In App.js > Expense Data =================");
+    console.log(expense);
+  };
+
+  //* return
   return (
     <>
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
       <div className="expense">
         {expenses &&
           expenses.map((expense) => (

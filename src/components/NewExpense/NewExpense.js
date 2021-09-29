@@ -5,7 +5,7 @@ import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
 
 //* Component
-const NewExpense = () => {
+const NewExpense = (props) => {
   // saveExpenseDataHandler
   const saveExpenseDataHandler = (enteredExpenseData) => {
     const expenseData = {
@@ -13,7 +13,7 @@ const NewExpense = () => {
       id: Math.random().toString(),
     };
 
-    console.log(expenseData);
+    props.onAddExpense(expenseData); //! Raising Event to App.js
   };
 
   //* return
