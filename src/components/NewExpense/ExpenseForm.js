@@ -4,46 +4,52 @@ import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
   // title, amount, date
-  const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredAmount: "",
-    enteredDate: "",
-  });
-  //   const [enteredTitle, setEnteredTitle] = useState("");
-  //   const [enteredAmount, setEnteredAmount] = useState("");
-  //   const [enteredDate, setEnteredDate] = useState("");
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
+  // const [userInput, setUserInput] = useState({
+  //   enteredTitle: "",
+  //   enteredAmount: "",
+  //   enteredDate: "",
+  // });
 
   // titleChangeHandler
   const titleChangeHandler = (event) => {
-    setUserInput({
-      ...userInput,
-      enteredTitle: event.target.value,
-      //   enteredAmount: userInput.enteredAmount,
-      //   enteredDate: userInput.enteredDate,
-    });
-    // setEnteredTitle(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredTitle: event.target.value,
+    //   enteredAmount: userInput.enteredAmount,
+    //   enteredDate: userInput.enteredDate,
+    // });
+
+    //! Important : state 업데이트에 딜레이 없음(setState 후 console.log에 이전 값이 출력되는 문제 해결)
+    // setUserInput((prevState) => {
+    //   return { ...prevState, enteredTitle: event.target.value };
+    // });
+
+    setEnteredTitle(event.target.value);
   };
 
   // amountChangeHandler
   const amountChangeHandler = (event) => {
-    setUserInput({
-      ...userInput,
-      enteredAmount: event.target.value,
-      //   enteredTitle: userInput.enteredTitle,
-      //   enteredDate: userInput.enteredDate,
-    });
-    // setEnteredAmount(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredAmount: event.target.value,
+    //   enteredTitle: userInput.enteredTitle,
+    //   enteredDate: userInput.enteredDate,
+    // });
+    setEnteredAmount(event.target.value);
   };
 
   // dateChangeHandler
   const dateChangeHandler = (event) => {
-    setUserInput({
-      ...userInput,
-      enteredDate: event.target.value,
-      //   enteredTitle: userInput.enteredTitle,
-      //   enteredAmount: userInput.enteredAmount,
-    });
-    // setEnteredDate(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredDate: event.target.value,
+    //   enteredTitle: userInput.enteredTitle,
+    //   enteredAmount: userInput.enteredAmount,
+    // });
+    setEnteredDate(event.target.value);
   };
 
   // return
