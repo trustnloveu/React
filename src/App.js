@@ -47,10 +47,15 @@ function App() {
 
   // addExpenseHandler
   const addExpenseHandler = (expense) => {
-    const prevExpenseList = [...expenseList];
-    prevExpenseList.push(expense);
+    // const prevExpenseList = [...expenseList];
+    // prevExpenseList.push(expense);
+    // setExpenseList(prevExpenseList);
 
-    setExpenseList(prevExpenseList);
+    // setExpenseList([expense, ...expenseList]);
+
+    setExpenseList((prevExpenses) => {
+      return [expense, ...prevExpenses];
+    });
   };
 
   //* return
