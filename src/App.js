@@ -47,14 +47,17 @@ function App() {
 
   // addExpenseHandler
   const addExpenseHandler = (expense) => {
+    //* Way - 1
     // const prevExpenseList = [...expenseList];
     // prevExpenseList.push(expense);
     // setExpenseList(prevExpenseList);
 
+    //* Way - 2
     // setExpenseList([expense, ...expenseList]);
 
+    //* Way - 3   >   important
     setExpenseList((prevExpenses) => {
-      return [expense, ...prevExpenses];
+      return [...prevExpenses, expense];
     });
   };
 
@@ -68,7 +71,8 @@ function App() {
       />
       <div className="expense">
         {expenseList &&
-          expenseList.map((expense) => (
+          //! [ key ] is important as an unique identifier
+          expenseList.map((expense, index) => (
             <ExpenseItem key={expense.id} data={expense} />
           ))}
       </div>
