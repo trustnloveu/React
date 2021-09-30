@@ -9,6 +9,7 @@ import ExpenseDate from "./ExpenseDate"; // ExpenseDate
 
 const ExpenseItem = (props) => {
   const [title, setTitle] = useState(props.data.title);
+
   const amount = props.data.amount;
   const date = props.data.date;
 
