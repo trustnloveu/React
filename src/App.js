@@ -45,6 +45,10 @@ function App() {
     setFilteredYear(selectedYear);
   };
 
+  const filteredExpenses = expenseList.filter((list) => {
+    return list.date.getFullYear().toString() === filteredYear;
+  });
+
   // addExpenseHandler
   const addExpenseHandler = (expense) => {
     //* Way - 1
@@ -65,15 +69,16 @@ function App() {
   return (
     <>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <ExpenseFilter
-        selected={filteredYear}
-        onChangeFilter={filterChangeHandler}
-      />
+
       <div className="expense">
-        {expenseList &&
-          //! [ key ] is important as an unique identifier
-          expenseList.map((expense, index) => (
-            <ExpenseItem key={expense.id} data={expense} />
+        <ExpenseFilter
+          selected={filteredYear}
+          onChangeFilter={filterChangeHandler}
+        />
+        {filteredExpenses.length === 0 && <p>No Expenses Found.</p>}
+        {filteredExpenses.length > 0 &&
+          filteredExpenses.map((expense, index) => (
+            <ExpenseItem key={expense.id} data={expense} /> //! [ key ] is important as an unique identifier
           ))}
       </div>
     </>

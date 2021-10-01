@@ -2,7 +2,7 @@ import React from "react";
 
 import "./ExpenseFilter.css";
 
-const ExpenseFilter = () => {
+const ExpenseFilter = ({ selected, onChangeFilter }) => {
   return (
     <div className="expenses-filter">
       <div className="expenses-filter__control">
