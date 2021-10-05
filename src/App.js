@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./App.css";
 
 import ExpenseFilter from "./components/Expenses/ExpenseFilter";
-import ExpenseItem from "./components/Expenses/ExpenseItem";
+import ExpenseList from "./components/Expenses/ExpenseList";
 import NewExpense from "./components/NewExpense/NewExpense";
 
 // dummy-data
@@ -50,14 +50,6 @@ function App() {
     return list.date.getFullYear().toString() === filteredYear;
   });
 
-  let expensesContent = <p>No Expenses Found.</p>;
-
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((expense, index) => (
-      <ExpenseItem key={expense.id} data={expense} /> //! [ key ] is important as an unique identifier
-    ));
-  }
-
   // addExpenseHandler
   const addExpenseHandler = (expense) => {
     //* Way - 1
@@ -84,13 +76,7 @@ function App() {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {expensesContent}
-
-        {/* {filteredExpenses.length === 0 && <p>No Expenses Found.</p>}
-        {filteredExpenses.length > 0 &&
-          filteredExpenses.map((expense, index) => (
-            <ExpenseItem key={expense.id} data={expense} /> //! [ key ] is important as an unique identifier
-          ))} */}
+        <ExpenseList filteredExpenses={filteredExpenses} />
       </div>
     </>
   );
