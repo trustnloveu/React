@@ -6,27 +6,20 @@ import "./ExpenseList.css";
 
 //* Component
 const ExpenseList = (props) => {
-  let expensesContent = <p>No Expenses Found.</p>;
-
-  if (props.items.length > 0) {
-    expensesContent = props.items.map((expense, index) => (
-      <ExpenseItem key={expense.id} data={expense} /> //! [ key ] is important as an unique identifier
-    ));
+  if (props.items.length === 0) {
+    return <h4 className="expense-list__fallback">Found No Expenses.</h4>;
   }
 
   return (
     <ul className="expenses-list">
+      //! [ key ] is important as an unique identifier
       {props.items.map((expense, index) => (
-        <ExpenseItem key={expense.id} data={expense} /> //! [ key ] is important as an unique identifier
+        <li>
+          <ExpenseItem key={expense.id} data={expense} />
+        </li>
       ))}
     </ul>
   );
 };
 
 export default ExpenseList;
-
-// {filteredExpenses.length === 0 && <p>No Expenses Found.</p>}
-// {filteredExpenses.length > 0 &&
-//   filteredExpenses.map((expense, index) => (
-//     <ExpenseItem key={expense.id} data={expense} />
-// ))}

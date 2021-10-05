@@ -76,7 +76,7 @@ function App() {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        <ExpenseList filteredExpenses={filteredExpenses} />
+        <ExpenseList items={filteredExpenses} />
       </div>
     </>
   );
