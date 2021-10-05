@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 
 import ExpenseFilter from "./components/Expenses/ExpenseFilter";
+import ExpenseChart from "./components/Expenses/ExpenseChart";
 import ExpenseList from "./components/Expenses/ExpenseList";
 import NewExpense from "./components/NewExpense/NewExpense";
 
@@ -12,25 +13,25 @@ const expenses = [
     id: "e1",
     date: new Date(2021, 4, 31),
     title: "자동차 보험료",
-    amount: "320,400원",
+    amount: 320400,
   },
   {
     id: "e2",
     date: new Date(2021, 5, 0),
     title: "수도세",
-    amount: "67,425원",
+    amount: 67425,
   },
   {
     id: "e3",
     date: new Date(2021, 5, 1),
     title: "아파트 관리비",
-    amount: "150,000원",
+    amount: 150000,
   },
   {
     id: "e4",
     date: new Date(2021, 5, 1),
     title: "롯데카드 5월 정산",
-    amount: "702,900원",
+    amount: 702900,
   },
 ];
 
@@ -76,6 +77,7 @@ function App() {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
+        <ExpenseChart expenses={filteredExpenses} />
         <ExpenseList items={filteredExpenses} />
       </div>
     </>

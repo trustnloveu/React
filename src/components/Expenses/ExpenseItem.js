@@ -20,14 +20,16 @@ const ExpenseItem = (props) => {
 
   // return
   return (
-    <Card className="expense-item">
-      <ExpenseDate date={date} />
-      <div className="expense-item__description">
-        <h2>{title}</h2>
-        <div className="expense-item__price">{amount}</div>
-      </div>
-      <button onClick={editTitleHandler}>내역 수정하기</button>
-    </Card>
+    <li>
+      <Card className="expense-item">
+        <ExpenseDate date={date} />
+        <div className="expense-item__description">
+          <h2>{title}</h2>
+          <div className="expense-item__price">{amount}</div>
+        </div>
+        <button onClick={editTitleHandler}>내역 수정하기</button>
+      </Card>
+    </li>
   );
 };
 
