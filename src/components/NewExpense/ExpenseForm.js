@@ -57,13 +57,13 @@ const ExpenseForm = (props) => {
   const submitHnadler = (event) => {
     event.preventDefault(); //! Important : JavaScript Function > default 동작 차단
 
-    const expenseDate = {
+    const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
-    props.onSaveExpenseData(expenseDate); //! Raising Event to NewExpense(Parent Component)
+    props.onSaveExpenseData(expenseData); //! Raising Event to NewExpense(Parent Component)
 
     setEnteredTitle("");
     setEnteredAmount("");
