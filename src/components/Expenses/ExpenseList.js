@@ -10,9 +10,9 @@ const ExpenseList = (props) => {
     return <h4 className="expense-list__fallback">Found No Expenses.</h4>;
   }
 
+  //! [ key ] is important as an unique identifier
   return (
     <ul className="expenses-list">
-      //! [ key ] is important as an unique identifier
       {props.items.map((expense, index) => (
         <li>
           <ExpenseItem key={expense.id} data={expense} />
