@@ -8,7 +8,7 @@ import Button from "../UI/Button";
 import classes from "./AddUser.module.css";
 
 //* Main
-const AddUser = () => {
+const AddUser = (props) => {
   //* States
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
@@ -17,9 +17,17 @@ const AddUser = () => {
   const addUserHandler = (event) => {
     event.preventDefault();
 
+    // null check > skip initializing
+    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0)
+      return;
+    if (+enteredAge < 1) return;
+
     // reset states
     setEnteredUsername("");
     setEnteredAge("");
+
+    //! Raise Event
+    props.onAddUser(enteredUsername, enteredAge);
   };
 
   //* User-Name Input Handler
