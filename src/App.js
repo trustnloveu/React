@@ -8,7 +8,7 @@ import AddUser from "./components/Users/AddUser";
 //* App
 function App() {
   return (
-    <div className="App">
+    <div>
       <AddUser />
     </div>
   );
