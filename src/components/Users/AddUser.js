@@ -23,9 +23,12 @@ const AddUser = (props) => {
     event.preventDefault();
 
     // null check > skip initializing
-    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0)
+    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
       return setError(ERROR_CODE.INPUT_0001); // Invalid Input
-    if (+enteredAge < 1) return setError(ERROR_CODE.INPUT_0002); // Invalid Age
+    }
+    if (+enteredAge < 1) {
+      return setError(ERROR_CODE.INPUT_0002); // Invalid Age
+    }
 
     // reset states
     setEnteredUsername("");
@@ -45,10 +48,15 @@ const AddUser = (props) => {
     setEnteredAge(event.target.value);
   };
 
+  //* Close Error Modal
+  const errorHandler = () => {
+    setError(null);
+  };
+
   //* return
   return (
     <>
-      {error && <ErrorModal error={error} />}
+      {error && <ErrorModal error={error} onConfirm={errorHandler} />}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">User Name</label>
