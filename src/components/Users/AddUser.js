@@ -8,11 +8,15 @@ import Button from "../UI/Button";
 import classes from "./AddUser.module.css";
 import ErrorModal from "../UI/ErrorModal";
 
+//* Constants
+import ERROR_CODE from "../../constants/ErrorCode";
+
 //* Main
 const AddUser = (props) => {
   //* States
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+  const [error, setError] = useState();
 
   //* addUserHandler
   const addUserHandler = (event) => {
@@ -20,8 +24,8 @@ const AddUser = (props) => {
 
     // null check > skip initializing
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0)
-      return;
-    if (+enteredAge < 1) return;
+      return setError(ERROR_CODE.INPUT_0001); // Invalid Input
+    if (+enteredAge < 1) return setError(ERROR_CODE.INPUT_0002); // Invalid Age
 
     // reset states
     setEnteredUsername("");
@@ -44,7 +48,7 @@ const AddUser = (props) => {
   //* return
   return (
     <>
-      <ErrorModal title="An error occured" message="Something went wrong!" />
+      {error && <ErrorModal error={error} />}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">User Name</label>
