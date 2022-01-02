@@ -1,4 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
+
+// Context Provider
+import CartProvider from "./components/store/CartProvider";
 
 // Comonents
 import Header from "./components/Layout/Header";
@@ -17,13 +20,13 @@ function App() {
   };
 
   return (
-    <Fragment>
+    <CartProvider>
       {cartModalIsShown && <Cart onClose={hideCartModalHandler} />}
       <main>
         <Header onShowCart={showCartModalHandler} />
         <Meals />
       </main>
-    </Fragment>
+    </CartProvider>
   );
 }
 
