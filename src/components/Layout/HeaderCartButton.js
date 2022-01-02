@@ -12,6 +12,7 @@ import CartIcon from "../Cart/CartIcon";
 // Main
 const HeaderCartButton = (props) => {
   const cartCtx = useContext(CartContext);
+  console.log(cartCtx);
 
   const itemCounts = cartCtx.items.reduce((prevNum, item) => {
     return prevNum + item.amount;
