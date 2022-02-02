@@ -46,16 +46,27 @@ function App() {
 
       const data = await response.json();
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        };
-      });
+      const loadedMovies = [];
 
-      setMovies(transformedMovies);
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      // const transformedMovies = data.results.map((movieData) => {
+      //   return {
+      //     id: movieData.episode_id,
+      //     title: movieData.title,
+      //     openingText: movieData.opening_crawl,
+      //     releaseDate: movieData.release_date,
+      //   };
+      // });
+
+      setMovies(loadedMovies);
     } catch (err) {
       setError(err.message);
     }
@@ -68,6 +79,24 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
+  //! POST reqeust
+  async function addMovieHandler(movie) {
+    const response = await fetch(
+      "https://react-test-98851-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(movie),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data) fetchMoviesHandler();
+  }
+
   let content = <p>Found no movies.</p>;
 
   if (movies.length > 0) content = <MoviesList movies={movies} />;
@@ -78,7 +107,7 @@ function App() {
   return (
     <React.Fragment>
       <section>
-        <AddMovie />
+        <AddMovie onAddMovie={addMovieHandler} />
       </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
