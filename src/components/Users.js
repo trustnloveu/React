@@ -14,6 +14,13 @@ class Users extends Component {
     };
   }
 
+  //* componentDidMount
+  componentDidMount() {
+    if (this.props.users.length === 0) {
+      throw new Error("No Users Provided."); //! Error Boundary. In class-based component, you can't use 'try-catch' functionality.
+    }
+  }
+
   //* methods
   toggleUsersHandler() {
     //! Don't.
