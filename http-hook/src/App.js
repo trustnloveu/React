@@ -25,20 +25,13 @@ function App() {
   };
 
   //* HTTP HOOK
-  const {
-    isLoading,
-    error,
-    sendRequest: fetchTasks,
-  } = useHttp(
-    {
-      url: "https://react-test-98851-default-rtdb.firebaseio.com/tasks.json",
-    },
-    transformTasks
-  );
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp(transformTasks);
 
   //* useEffect
   useEffect(() => {
-    fetchTasks();
+    fetchTasks({
+      url: "https://react-test-98851-default-rtdb.firebaseio.com/tasks.json",
+    });
   }, [fetchTasks]);
 
   //* return
