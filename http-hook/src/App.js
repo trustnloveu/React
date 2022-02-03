@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
@@ -10,7 +10,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   //* Method
-  const transformTasks = (traskObject) => {
+  const transformTasks = useCallback((traskObject) => {
     const loadedTask = [];
 
     for (const taskKey in traskObject) {
@@ -18,7 +18,7 @@ function App() {
     }
 
     setTasks(loadedTask);
-  };
+  }, []);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
@@ -39,7 +39,7 @@ function App() {
   //* useEffect
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]);
 
   //* return
   return (
