@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /*
   To Handle User Input in Form
@@ -13,9 +13,22 @@ const SimpleInput = (props) => {
   //* state
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameIsTouched, setEnteredNameIsTouched] = useState(false); //! To prevent side-effects from useEffect hook
+  // const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== ""; // Input Validation (Empty Check). This will be updated whenever enteredName state changes
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
+
+  let formIsValid = false;
+  if (enteredNameIsValid) formIsValid = true;
+
+  //* useEffect
+  // useEffect(() => {
+  //   if (enteredNameIsValid) {
+  //     setFormIsValid(true);
+  //   } else {
+  //     setFormIsValid(false);
+  //   }
+  // }, [enteredNameIsValid]);
 
   //* ref
   // const nameInputRef = useRef();
@@ -63,7 +76,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
