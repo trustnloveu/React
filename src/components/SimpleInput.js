@@ -12,41 +12,38 @@ import { useRef, useState } from "react";
 const SimpleInput = (props) => {
   //* state
   const [enteredName, setEnteredName] = useState("");
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameIsTouched, setEnteredNameIsTouched] = useState(false); //! To prevent side-effects from useEffect hook
 
-  //* ref
-  const nameInputRef = useRef();
+  const enteredNameIsValid = enteredName.trim() !== ""; // Input Validation (Empty Check). This will be updated whenever enteredName state changes
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
 
-  //* method
+  //* ref
+  // const nameInputRef = useRef();
+
+  //* handler
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
   };
 
-  const formSubmissionHandler = (event) => {
-    event.preventDefault(); //! To avoid sending HTTP request to the server with current url
-
-    setEnteredNameIsTouched(true); // Flag to check if Input has changed
-
-    // Input Validation (Empty Check)
-    if (enteredName.trim() === "") {
-      setEnteredNameIsValid(false);
-      return;
-    }
-
-    setEnteredNameIsValid(true);
-
-    // const enteredValue = nameInputRef.current.value;
-
-    // To initialize form
-    // nameInputRef.current.value = '' //! Not ideal and recommanded. Don't manipulate the DOM, but, let React handler do.
-    setEnteredName("");
+  const nameInputBlurHandler = (event) => {
+    setEnteredNameIsTouched(true);
   };
 
-  const nameInputIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
+  const formSubmissionHandler = (event) => {
+    event.preventDefault(); //! To avoid sending HTTP request to the server with current url
+    // const enteredValue = nameInputRef.current.value;
+
+    if (!enteredNameIsValid) return;
+
+    // nameInputRef.current.value = '' //! Not ideal and recommanded. Don't manipulate the DOM, but, let React handler do.
+    setEnteredName("");
+    setEnteredNameIsTouched(false);
+  };
+
+  //* class value
   const nameInputClasses = nameInputIsInvalid
-    ? "form-control"
-    : "form-control invalid";
+    ? "form-control invalid"
+    : "form-control";
 
   //* return
   return (
@@ -54,10 +51,11 @@ const SimpleInput = (props) => {
       <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input
-          ref={nameInputRef}
+          // ref={nameInputRef}
           type="text"
           id="name"
           onChange={nameInputChangeHandler}
+          onBlur={nameInputBlurHandler}
           value={enteredName}
         />
         {nameInputIsInvalid && (
