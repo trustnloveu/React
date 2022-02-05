@@ -34,7 +34,7 @@ const BasicForm = (props) => {
   } = useInput(emailCheck);
 
   //* form validation
-  let formIsValid = firstNameIsValid && lastNameIsValid && emailIsValid;
+  const formIsValid = firstNameIsValid && lastNameIsValid && emailIsValid;
 
   //* submit
   const submitHandler = (event) => {
