@@ -19,6 +19,14 @@
   color: #8a2b06;
 }
 
+.failed {
+  max-width: 60rem;
+  width: 90%;
+  margin: 2rem auto;
+  text-align: center;
+  color: #8a2b06;
+}
+
 @keyframes meals-appear {
   from {
     opacity: 0;

@@ -15,6 +15,7 @@ const AvailableMeals = () => {
   //* State
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   //* useEffect
   useEffect(() => {
@@ -40,9 +41,17 @@ const AvailableMeals = () => {
       setIsLoading(false);
     };
 
-    getMeals();
+    try {
+      getMeals().catch((error) => {
+        setIsLoading(false);
+        setHttpError(error.message);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
+  //* content
   const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
@@ -53,6 +62,7 @@ const AvailableMeals = () => {
     />
   ));
 
+  //* loading
   if (isLoading) {
     return (
       <section className={classes.loading}>
@@ -62,6 +72,19 @@ const AvailableMeals = () => {
       </section>
     );
   }
+
+  //* error
+  if (httpError) {
+    return (
+      <section className={classes.failed}>
+        <Card>
+          <p>Failed to load.</p>
+        </Card>
+      </section>
+    );
+  }
+
+  //* ok
   return (
     <section className={classes.meals}>
       <Card>
