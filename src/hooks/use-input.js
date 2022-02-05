@@ -7,7 +7,7 @@ const useInput = (validateFn) => {
 
   //* Validation Value
   const isValid = validateFn(value);
-  const hasError = !value && isTouched;
+  const hasError = !isValid && isTouched;
 
   //* Validation Function
   const onChangeHandler = (event) => {
