@@ -14,13 +14,16 @@ import MealItem from "./MealItem/MealItem";
 const AvailableMeals = () => {
   //* State
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   //* useEffect
   useEffect(() => {
     const getMeals = async () => {
-      const { data } = await axios.get(
-        "https://react-test-98851-default-rtdb.firebaseio.com/meals.json"
-      );
+      const { data } = await axios({
+        method: "GET",
+        url: "https://react-test-98851-default-rtdb.firebaseio.com/meals.json",
+        responseType: "json",
+      });
 
       const loadedMeals = [];
 
@@ -34,6 +37,7 @@ const AvailableMeals = () => {
       }
 
       setMeals(loadedMeals);
+      setIsLoading(false);
     };
 
     getMeals();
@@ -49,6 +53,15 @@ const AvailableMeals = () => {
     />
   ));
 
+  if (isLoading) {
+    return (
+      <section className={classes.loading}>
+        <Card>
+          <p>Loading...</p>
+        </Card>
+      </section>
+    );
+  }
   return (
     <section className={classes.meals}>
       <Card>
