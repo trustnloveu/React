@@ -1,4 +1,4 @@
-const { createStore } = require("redux");
+import { createStore } from "redux";
 
 //* initialState
 const initialState = { counter: 0, showCounter: true };
