@@ -2,9 +2,22 @@ const redux = require("redux");
 
 //* 'Reducer Function'
 const counterReducer = (state = { counter: 0 }, action) => {
-  return {
-    counter: state.counter + 1,
-  };
+  // increment
+  if (action.type === "increment") {
+    return {
+      counter: state.counter + 1,
+    };
+  }
+
+  // decrement
+  if (action.type === "decrement") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  // default
+  return state;
 };
 
 //* 'Store' to manage data
@@ -21,3 +34,4 @@ store.subscribe(counterSubscriber);
 
 //* 'dispatch'
 store.dispatch({ type: "increment" });
+store.dispatch({ type: "decrement" });
