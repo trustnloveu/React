@@ -37,16 +37,15 @@ const Cart = (props) => {
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
 
-    const response = await axios({
+    await axios({
       method: "POST",
       url: "https://react-test-98851-default-rtdb.firebaseio.com/orders.json",
       data: { user: userData, items: cartCtx.items },
     });
 
-    if (response) {
-      setIsSubmitting(false);
-      setDidSubmit(true);
-    }
+    setIsSubmitting(false);
+    setDidSubmit(true);
+    cartCtx.clearCart();
   };
 
   //* content
