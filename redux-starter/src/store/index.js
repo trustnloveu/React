@@ -3,16 +3,16 @@ const { createStore } = require("redux");
 //* Reducer
 const counterReducer = (state = { counter: 0 }, action) => {
   // increment
-  if ((action.type = "increment")) {
+  if (action.type === "increment") {
     return {
-      counter: state.counter++,
+      counter: state.counter + 1,
     };
   }
 
   // decrement
-  if ((action.type = "decrement")) {
+  if (action.type === "decrement") {
     return {
-      counter: state.counter--,
+      counter: state.counter - 1,
     };
   }
 
