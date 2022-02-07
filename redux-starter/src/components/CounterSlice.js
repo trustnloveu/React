@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 //* reducer action with redux-toolkit
-import { counterActions } from "../store/indexSlice";
+import { counterActions } from "../store/counterSlice";
 
 import classes from "./Counter.module.css";
 
@@ -10,7 +10,7 @@ const increaseAmount = 10;
 //* Main
 const Counter = () => {
   //* useSelector
-  const counter = useSelector((state) => state.counter.counter); //! state.counter for a single reducer
+  const counter = useSelector((state) => state.counter.counter); //! 'state.counter' for a single reducer
   const showCounter = useSelector((state) => state.counter.showCounter);
 
   //* useDispatch
@@ -29,7 +29,7 @@ const Counter = () => {
   };
 
   const toggleCounterHandler = () => {
-    dispatch(counterActions.toggle);
+    dispatch(counterActions.toggle());
   };
 
   return (
