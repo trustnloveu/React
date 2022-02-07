@@ -4,6 +4,7 @@
 /node_modules
 /sample/node_modules
 /redux-starter/node_modules
+/redux-advanced/node_modules
 /.pnp
 .pnp.js
 
