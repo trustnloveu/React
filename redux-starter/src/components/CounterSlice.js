@@ -10,8 +10,8 @@ const increaseAmount = 10;
 //* Main
 const Counter = () => {
   //* useSelector
-  const counter = useSelector((state) => state.counter);
-  const showCounter = useSelector((state) => state.showCounter);
+  const counter = useSelector((state) => state.counter.counter); //! state.counter for a single reducer
+  const showCounter = useSelector((state) => state.counter.showCounter);
 
   //* useDispatch
   const dispatch = useDispatch();
