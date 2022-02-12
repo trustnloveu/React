@@ -5,7 +5,7 @@ import { uiActions } from "./ui-slice";
 //* getCardData
 export const getCartData = () => {
   return async (dispatch) => {
-    //* getData
+    // getData
     const getData = async () => {
       const response = await Axios.get("cart.json");
 
@@ -16,11 +16,17 @@ export const getCartData = () => {
       return response.data;
     };
 
-    //* Execute
+    // Execute
     try {
       const { data: cartData } = await getData();
 
-      if (cartData) dispatch(cartActions.replaceCart(cartData));
+      if (cartData)
+        dispatch(
+          cartActions.replaceCart({
+            items: cartData.items || [],
+            totalQuantity: cartData.totalQuantity,
+          })
+        );
     } catch (error) {
       dispatch(
         uiActions.showNotification({
@@ -44,10 +50,13 @@ export const sendCartData = (cart) => {
       })
     );
 
-    //* sendRequest
+    // sendRequest
     const sendRequest = async () => {
       const response = await Axios.put("/cart.json", {
-        data: cart,
+        data: {
+          items: cart.items,
+          totalQuantity: cart.totalQuantity,
+        },
       });
 
       if (response.status !== 200) {
@@ -55,7 +64,7 @@ export const sendCartData = (cart) => {
       }
     };
 
-    //* Execute
+    // Execute
     try {
       await sendRequest();
 

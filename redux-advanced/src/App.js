@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     if (isInitial) return (isInitial = false);
 
-    dispatch(sendCartData(cart));
+    if (cart.changed) dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
   //* return
