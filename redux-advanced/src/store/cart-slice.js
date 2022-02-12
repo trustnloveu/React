@@ -17,7 +17,7 @@ const cartSlice = createSlice({
       if (!existingItem) {
         // It's fine in 'redux-toolkit', because it's immutable
         state.items.push({
-          itemId: newItem.id,
+          id: newItem.id,
           name: newItem.title,
           price: newItem.price,
           quantity: 1,
