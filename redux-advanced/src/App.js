@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Axios } from "./http/axios";
-import { uiActions } from "./store/ui-slice";
+
+import { sendCartData } from "./store/cart-slice";
 
 import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
@@ -18,43 +18,9 @@ function App() {
 
   //* useEffect
   useEffect(() => {
-    const setCart = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending Cart Data.",
-        })
-      );
-
-      const response = await Axios.put("/cart.json", {
-        data: cart,
-      });
-
-      if (response.status !== 200) {
-        throw new Error("Sent Cart Data Failed.");
-      }
-
-      dispatch(
-        uiActions.showNotification({
-          status: "success",
-          title: "Success",
-          message: "Sent Cart Data Successfully.",
-        })
-      );
-    };
-
     if (isInitial) return (isInitial = false);
 
-    setCart().catch((err) => {
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Error",
-          message: "Sent Cart Data Failed.",
-        })
-      );
-    });
+    dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
   //* return

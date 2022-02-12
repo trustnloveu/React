@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Axios } from "../http/axios";
+
+import { uiActions } from "./ui-slice";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -47,6 +50,48 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const sendCartData = (cart) => {
+  return async (dispatch) => {
+    dispatch(
+      uiActions.showNotification({
+        status: "pending",
+        title: "Sending...",
+        message: "Sending Cart Data.",
+      })
+    );
+
+    const sendRequest = async () => {
+      const response = await Axios.put("/cart.json", {
+        data: cart,
+      });
+
+      if (response.status !== 200) {
+        throw new Error("Sent Cart Data Failed.");
+      }
+    };
+
+    try {
+      await sendRequest();
+
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "Success",
+          message: "Sent Cart Data Successfully.",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Error",
+          message: "Sent Cart Data Failed.",
+        })
+      );
+    }
+  };
+};
 
 export const cartActions = cartSlice.actions;
 export default cartSlice;
