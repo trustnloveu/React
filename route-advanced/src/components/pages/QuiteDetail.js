@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Route, useParams } from "react-router-dom";
 
 import Comments from "../comments/Comments";
+import HighlightedQuote from "../quotes/HighlightedQuote";
 
 const QuoteDetail = () => {
   const params = useParams();
-  const [quote, setQuote] = useState();
+  const [quote, setQuote] = useState({ text: "", author: "" });
 
   //* useEffect
   useEffect(() => {
@@ -24,10 +25,10 @@ const QuoteDetail = () => {
   }, [params.quoteId]);
 
   //* return
+
   return (
     <>
-      <h1>Quote detail page</h1>
-      <p>{params.quoteId}</p>
+      <HighlightedQuote text={quote.text} author={quote.author} />
       <Route path={`/quotes/${params.quoteId}/comments`}>
         <Comments />
       </Route>
