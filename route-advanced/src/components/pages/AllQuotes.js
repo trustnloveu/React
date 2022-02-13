@@ -28,7 +28,7 @@ const AllQuotes = () => {
       }
     };
 
-    getQuotes();
+    getQuotes().catch((err) => console.log(err));
   }, []);
 
   //* return
