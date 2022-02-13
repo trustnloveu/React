@@ -1,8 +1,12 @@
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 import QuoteForm from "../quotes/QuoteForm";
 
 const NewQuote = () => {
+  const history = useHistory();
+
   const addQuoteHandler = (quoteData) => {
-    console.log(quoteData);
+    history.push("/quotes"); //! = location.href
   };
 
   //* return
