@@ -1,10 +1,17 @@
+import axios from "axios";
+
 const FIREBASE_DOMAIN = "https://react-test-98851-default-rtdb.firebaseio.com";
 
 export async function getAllQuotes() {
-  const response = await fetch(`${FIREBASE_DOMAIN}/quotes.json`);
-  const data = await response.json();
+  // const response = await fetch(`${FIREBASE_DOMAIN}/quotes.json`);
+  // const data = await response.json();
 
-  if (!response.ok) {
+  // if (!response.ok) {
+  //   throw new Error(data.message || "Could not fetch quotes.");
+  // }
+
+  const { data } = await axios.get(`${FIREBASE_DOMAIN}/quotes.json`);
+  if (!data) {
     throw new Error(data.message || "Could not fetch quotes.");
   }
 
@@ -23,32 +30,27 @@ export async function getAllQuotes() {
 }
 
 export async function getSingleQuote(quoteId) {
-  const response = await fetch(`${FIREBASE_DOMAIN}/quotes/${quoteId}.json`);
-  const data = await response.json();
+  const { data } = await axios.get(`${FIREBASE_DOMAIN}/quotes/${quoteId}.json`);
 
-  if (!response.ok) {
+  if (!data) {
     throw new Error(data.message || "Could not fetch quote.");
   }
 
-  const loadedQuote = {
+  const quote = {
     id: quoteId,
     ...data,
   };
 
-  return loadedQuote;
+  return quote;
 }
 
 export async function addQuote(quoteData) {
-  const response = await fetch(`${FIREBASE_DOMAIN}/quotes.json`, {
-    method: "POST",
-    body: JSON.stringify(quoteData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
+  const { data } = await axios.post(
+    `${FIREBASE_DOMAIN}/quotes.json`,
+    quoteData
+  );
 
-  if (!response.ok) {
+  if (!data) {
     throw new Error(data.message || "Could not create quote.");
   }
 

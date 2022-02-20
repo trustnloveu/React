@@ -1,38 +1,42 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getAllQuotes } from "../../lib/api";
 
 import QuoteList from "../quotes/QuoteList";
+import useHttp from "../../hooks/use-http";
+import LoadingSpinner from "../UI/LoadingSpinner";
+import NoQuotesFound from "../quotes/NoQuotesFound";
 
 const AllQuotes = () => {
-  const [quotes, setQuotes] = useState([]);
+  const {
+    sendRequest,
+    status,
+    data: allQuotes,
+    error,
+  } = useHttp(getAllQuotes, true);
 
   //* useEffect
   useEffect(() => {
-    const getQuotes = async () => {
-      const { data } = await axios.get(
-        "https://react-test-98851-default-rtdb.firebaseio.com/quotes.json"
-      );
-
-      if (data) {
-        const quoteList = [];
-
-        for (const key in data) {
-          quoteList.push({
-            id: key,
-            author: data[key].author,
-            text: data[key].text,
-          });
-        }
-
-        setQuotes(quoteList);
-      }
-    };
-
-    getQuotes().catch((err) => console.log(err));
-  }, []);
+    sendRequest();
+  }, [sendRequest]);
 
   //* return
-  return <QuoteList quotes={quotes} />;
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p className="centered focused">{error}</p>;
+  }
+
+  if (status === "completed" && (!allQuotes || allQuotes.length === 0)) {
+    return <NoQuotesFound />;
+  }
+
+  return <QuoteList quotes={allQuotes} />;
 };
 
 export default AllQuotes;

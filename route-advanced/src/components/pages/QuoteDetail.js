@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
-import axios from "axios";
+import useHttp from "../../hooks/use-http";
+import { getSingleQuote } from "../../lib/api";
 
 import Comments from "../comments/Comments";
 import HighlightedQuote from "../quotes/HighlightedQuote";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const QuoteDetail = () => {
   //! match.path === params/:quoteId
@@ -11,24 +13,37 @@ const QuoteDetail = () => {
   const match = useRouteMatch();
   const params = useParams();
 
-  const [quote, setQuote] = useState({ text: "", author: "" });
+  const { quoteId } = params;
+
+  const {
+    sendRequest,
+    status,
+    data: quote,
+    error,
+  } = useHttp(getSingleQuote, true);
 
   //* useEffect
   useEffect(() => {
-    const getQuote = async () => {
-      const { data } = await axios.get(
-        "https://react-test-98851-default-rtdb.firebaseio.com/quotes.json"
-      );
-
-      if (data) {
-        setQuote(data[params.quoteId]);
-      }
-    };
-
-    getQuote();
-  }, [params.quoteId]);
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
 
   //* return
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p className="centered">{error}</p>;
+  }
+
+  if (!quote.text) {
+    return <p>No Quote Found.</p>;
+  }
+
   return (
     <>
       <HighlightedQuote text={quote.text} author={quote.author} />
